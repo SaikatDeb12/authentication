@@ -1,8 +1,11 @@
-import express from "express";
+import express, { json } from "express";
+import mongoose from "mongoose";
 const app = express();
-console.log("hello");
-const sum = (a: number, b: number) => {
-  return a + b;
-};
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "../config/db";
+dotenv.config();
 
-console.log(sum(2, 3));
+connectDB();
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(express.json());
