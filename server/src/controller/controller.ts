@@ -41,7 +41,7 @@ const handleLogin = async (req: Request, res: Response) => {
       return;
     }
 
-    const isMatch = await bcrypt.compare(user.password, password);
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       res.status(400).json({ msg: "Invalid credentials" });
       return;

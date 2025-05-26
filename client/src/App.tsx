@@ -4,7 +4,7 @@ import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 function App() {
   return (
-    <div>
+    <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
