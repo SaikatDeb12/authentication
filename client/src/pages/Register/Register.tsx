@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "./register.css";
+import axios from "axios";
 const Register: React.FC = () => {
   const schema = z.object({
     name: z.string().min(1, "Required"),
@@ -9,13 +10,29 @@ const Register: React.FC = () => {
     password: z.string().min(4, "Min. characters should be atleast 4"),
   });
 
+  type RegisterSchema = z.infer<typeof schema>;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(schema) });
+  } = useForm<RegisterSchema>({ resolver: zodResolver(schema) });
 
-  const onSubmit = () => {};
+  const onSubmit = async (data: RegisterSchema) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:${import.meta.env.VITE_PORT}/api/auth/register`,
+        {
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }
+      );
+      console.log(res);
+    } catch (err) {
+      console.log("Error in register: ", err);
+    }
+  };
 
   return (
     <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
