@@ -20,7 +20,10 @@ const handleRegister = async (req: Request, res: Response) => {
     const newUser = new User({ name, email, password });
     await newUser.save();
 
-    const token = jwt.sign(newUser._id, process.env.JWT_SECRET as string);
+    const token = jwt.sign(
+      { newUser: newUser._id },
+      process.env.JWT_SECRET as string
+    );
     res.status(201).json({ token });
   } catch (err) {
     res.status(500).json({ msg: "Server error!" });
@@ -40,14 +43,17 @@ const handleLogin = async (req: Request, res: Response) => {
       res.status(400).json({ msg: "Invalid credentials" });
       return;
     }
-
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       res.status(400).json({ msg: "Invalid credentials" });
       return;
     }
 
-    const token = jwt.sign(user._id, process.env.JWT_SECRET as string);
+    const token = jwt.sign(
+      { user: user._id },
+      process.env.JWT_SECRET as string
+    );
+    console.log("token: ", token);
     res.json({ token });
   } catch (err) {
     res.status(500).json({ msg: "Server error" });

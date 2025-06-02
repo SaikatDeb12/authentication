@@ -3,7 +3,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "./register.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Register: React.FC = () => {
+  const navigate = useNavigate();
+
   const schema = z.object({
     name: z.string().min(1, "Required"),
     email: z.string().email("Invalid email"),
@@ -29,6 +32,7 @@ const Register: React.FC = () => {
         }
       );
       console.log(res);
+      navigate("/login");
     } catch (err) {
       console.log("Error in register: ", err);
     }
