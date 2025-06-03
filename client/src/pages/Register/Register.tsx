@@ -31,7 +31,9 @@ const Register: React.FC = () => {
           password: data.password,
         }
       );
-      console.log(res);
+
+      const token = res.data.token;
+      localStorage.setItem("token", token);
       navigate("/login");
     } catch (err) {
       console.log("Error in register: ", err);

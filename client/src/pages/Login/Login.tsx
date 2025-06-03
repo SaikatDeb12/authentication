@@ -21,7 +21,6 @@ const Login: React.FC = () => {
   } = useForm<LoginSchema>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: LoginSchema) => {
-    // console.log(event);
     try {
       const res = await axios.post(
         `http://localhost:${import.meta.env.VITE_PORT}/api/auth/login`,
@@ -30,7 +29,10 @@ const Login: React.FC = () => {
           password: data.password,
         }
       );
-      console.log(res);
+
+      const token = res.data.token;
+      localStorage.setItem("token", token);
+
       navigate("/");
     } catch (err) {
       console.log("Error in login: ", err);
