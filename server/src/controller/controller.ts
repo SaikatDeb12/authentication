@@ -59,4 +59,6 @@ const handleLogin = async (req: Request, res: Response) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
-export { handleRegister, handleLogin };
+
+const handleGetUser = async (req: Request, res: Response) => {};
+export { handleRegister, handleLogin, handleGetUser };
