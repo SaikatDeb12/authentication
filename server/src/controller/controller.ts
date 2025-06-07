@@ -60,5 +60,4 @@ const handleLogin = async (req: Request, res: Response) => {
   }
 };
 
-const handleGetUser = async (req: Request, res: Response) => {};
-export { handleRegister, handleLogin, handleGetUser };
+export { handleRegister, handleLogin };
